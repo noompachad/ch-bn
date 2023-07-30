@@ -1,6 +1,5 @@
 import { Application, json, urlencoded, Response, Request, NextFunction } from 'express';
 import http from 'http';
-
 import cors from 'cors';
 import helmet from 'helmet';
 import hpp from 'hpp';
@@ -8,13 +7,13 @@ import cookierSession from 'cookie-session';
 import HTTP_STATUS from 'http-status-codes';
 import 'express-async-errors';
 import compression from 'compression';
-import { config } from './config';
+import { config } from '@root/config';
 import { Server } from 'socket.io';
 import { createAdapter } from '@socket.io/redis-adapter';
 import { createClient } from 'redis';
-import applicationRoutes from './routes';
-import { CustomError, IErrorResponse } from './shared/globals/helpers/error-handler';
+import applicationRoutes from '@root/routes';
 import Logger from 'bunyan';
+import { CustomError, IErrorResponse } from '@global/helpers/error-handler';
 
 const SERVER_PORT = 5000;
 const log: Logger = config.createLogger('server');
@@ -109,5 +108,7 @@ export class ChattyServer {
     });
   }
 
-  private socketIOConnection(io: Server): void {}
+  private socketIOConnection(io: Server): void {
+    log.info('socketIOConnection');
+  }
 }
